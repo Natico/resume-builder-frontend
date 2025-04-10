@@ -1,5 +1,7 @@
 import enUS from './en-US'
+import faIR from './fa-IR'
 
 export default {
-  'en-US': enUS
+  'en': enUS,
+  'fa': faIR
 }
