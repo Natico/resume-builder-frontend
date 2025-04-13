@@ -26,6 +26,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import Handlebars from 'handlebars'
+const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 const router = useRouter()
 const data = ref({})
@@ -52,7 +53,7 @@ onMounted(() => {
 async function fetchTemplateAndRender () {
   try {
     const templateName = data.value.templateName || 'template_default'
-    const response = await axios.get('http://localhost:3000/template', {
+    const response = await axios.get(`${backendURL}/template`, {
       params: { name: templateName }
     })
     const templateSource = response.data

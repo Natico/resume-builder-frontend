@@ -203,6 +203,8 @@ import { useRouter } from 'vue-router'
 import faIR from 'quasar/lang/fa-IR'
 import enUS from 'quasar/lang/en-US'
 
+const backendURL = import.meta.env.VITE_BACKEND_URL;
+
 const { locale } = useI18n()
 
 const isFaLocale = computed(() => locale.value.startsWith('fa'))
@@ -299,8 +301,8 @@ onMounted(async () => {
   }
 
   try {
-    const res = await axios.get('http://localhost:3000/templates')
-    templateOptions.value = res.data
+    const res = await axios.get(`${backendURL}/templates`);
+    templateOptions.value = res.data;
   } catch (e) {
     console.error('Failed to fetch template list:', e)
   }
@@ -383,7 +385,7 @@ async function submitForm() {
   console.log('Sending data for PDF generation:', JSON.stringify(dataToSend, null, 2))
 
   try {
-    const res = await axios.post('http://localhost:3000/generate', dataToSend, {
+    const res = await axios.post(`${backendURL}/generate`, dataToSend, {
       responseType: 'blob'
     })
     const url = window.URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }))
