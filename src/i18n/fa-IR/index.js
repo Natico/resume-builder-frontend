@@ -52,5 +52,9 @@ export default {
         uploadAvatar: 'آپلود عکس',
         deleteAvatar: 'حذف عکس',
         and: 'و',
+        generating: 'در حال ساخت رزومه...',
+        pleaseWait: 'لطفاً چند لحظه صبر کنید.',
+        pdfGenerationError: 'خطا در تولید فایل PDF',
+        pleaseTryAgain: 'لطفاً دوباره تلاش کنید.'
     }
 }

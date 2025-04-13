@@ -52,5 +52,9 @@ export default {
     uploadAvatar: 'Upload Avatar',
     deleteAvatar: 'Delete Avatar',
     and: 'and',
+    generating: 'Generating your resume...',
+    pleaseWait: 'Please wait a few seconds.',
+    pdfGenerationError: 'Failed to generate PDF file',
+    pleaseTryAgain: 'Please try again.'
   }
 }

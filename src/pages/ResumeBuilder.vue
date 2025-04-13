@@ -191,10 +191,19 @@
         </q-btn-group>
       </q-form>
     </div>
+    <q-dialog v-model="isGenerating" persistent full-width full-height>
+      <q-card class="flex flex-center column q-pa-xl">
+        <q-spinner-gears size="80px" color="primary" />
+        <div class="text-h6 q-mt-md">{{ $t('resume.generating') }}</div>
+        <div class="text-subtitle2 text-grey">{{ $t('resume.pleaseWait') }}</div>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template> 
 
 <script setup>
+import { useQuasar } from 'quasar'
+const $q = useQuasar()
 import { useI18n } from 'vue-i18n'
 const { t: $t } = useI18n()
 import { ref, onMounted, computed, watch } from 'vue'
@@ -204,6 +213,8 @@ import faIR from 'quasar/lang/fa-IR'
 import enUS from 'quasar/lang/en-US'
 
 const backendURL = import.meta.env.VITE_BACKEND_URL;
+
+const isGenerating = ref(false)
 
 const { locale } = useI18n()
 
@@ -353,6 +364,7 @@ function calculateDuration(start, end) {
 
 // Function to handle PDF download
 async function submitForm() {
+  isGenerating.value = true;
   const dataToSend = {
     personalInfo: {
       fullName: name.value,
@@ -400,7 +412,14 @@ async function submitForm() {
     // router.push('/')
   } catch (err) {
     console.error('Error generating PDF:', err)
-    alert('An issue occurred while generating the PDF file.')
+    $q.notify({
+      type: 'negative',
+      message: $t('resume.pdfGenerationError'),
+      caption: $t('resume.pleaseTryAgain'),
+      icon: 'error'
+    })
+  } finally {
+    isGenerating.value = false
   }
 }
 
